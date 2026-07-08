@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nombre Apellido — Portafolio</title>
+<meta name="description" content="Portafolio de trabajos: diseño, código y escritura.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --paper: #EFEDE6;
+    --paper-raised: #F7F5EF;
+    --ink: #1B1B1B;
+    --ink-soft: #55534C;
+    --line: #D6D2C4;
+    --slate: #3D5A6C;
+    --slate-deep: #2A4150;
+    --amber: #C68B3F;
+    --radius: 2px;
+
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--slate); outline-offset: 3px; }
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Ledger label (signature element) ---------- */
+  .ledger-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+  }
+  .ledger-tab::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ---------- Header / index nav ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    z-index: 10;
+  }
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .nav-mark {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+  }
+  nav ul {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  nav a:hover { color: var(--ink); border-color: var(--amber); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 96px 0 72px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .ledger-tab { margin-bottom: 28px; }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 1.05;
+    margin: 0 0 20px;
+    max-width: 14ch;
+  }
+  .hero p.lede {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 0 32px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    padding: 11px 20px;
+    border-radius: var(--radius);
+    display: inline-block;
+  }
+  .btn-primary { background: var(--slate); color: var(--paper-raised); }
+  .btn-primary:hover { background: var(--slate-deep); }
+  .btn-ghost { border: 1px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+  /* ---------- Sections ---------- */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--amber);
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  /* ---------- Catalog cards (proyectos) ---------- */
+  .catalog {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .card {
+    background: var(--paper-raised);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0;
+  }
+  .card p { color: var(--ink-soft); font-size: 14.5px; margin: 0; flex-grow: 1; }
+  .card-link {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    align-self: flex-start;
+  }
+  .card-link:hover { color: var(--slate); border-color: var(--slate); }
+
+  /* ---------- Sobre mí ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+  }
+  .about-grid p { color: var(--ink-soft); font-size: 16px; max-width: 55ch; }
+  .skills-list { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: 13px; }
+  .skills-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .skills-list li span:last-child { color: var(--ink); }
+
+  /* ---------- Contacto ---------- */
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .contact-row h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 32px;
+    margin: 0 0 8px;
+  }
+  .contact-links { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 13px; }
+  .contact-links a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .contact-links a:hover { border-color: var(--amber); }
+
+  footer {
+    padding: 28px 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 720px) {
+    .catalog { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    nav ul { gap: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-row">
+    <span class="nav-mark">N. APELLIDO — ARCHIVO</span>
+    <nav>
+      <ul>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="ledger-tab">Archivo de trabajo · actualizado 2026</span>
+    <h1>Nombre Apellido</h1>
+    <p class="lede">
+      Creo cosas en distintos formatos: diseño, código y contenido.
+      Esta es la versión ordenada de todo lo que fui haciendo — reemplazá este texto
+      por una descripción corta de quién sos y qué hacés.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+      <a class="btn btn-ghost" href="cv.pdf" download>Descargar CV</a>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Proyectos</h2>
+    </div>
+
+    <div class="catalog">
+      <!-- Repetí este bloque .card por cada proyecto -->
+      <div class="card">
+        <div class="card-meta">
+          <span>Diseño</span>
+          <span>2026</span>
+        </div>
+        <h3>Nombre del proyecto</h3>
+        <p>Descripción corta: qué hiciste, qué herramientas usaste y qué resultado tuvo. Dos o tres líneas alcanzan.</p>
+        <a class="card-link" href="#" target="_blank" rel="noopener">Ver proyecto →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-meta">
+          <span>Código</span>
+          <span>2025</span>
+        </div>
+        <h3>Nombre del proyecto</h3>
+        <p>Descripción corta: qué hiciste, qué herramientas usaste y qué resultado tuvo. Dos o tres líneas alcanzan.</p>
+        <a class="card-link" href="#" target="_blank" rel="noopener">Ver proyecto →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-meta">
+          <span>Escritura</span>
+          <span>2025</span>
+        </div>
+        <h3>Nombre del proyecto</h3>
+        <p>Descripción corta: qué hiciste, qué herramientas usaste y qué resultado tuvo. Dos o tres líneas alcanzan.</p>
+        <a class="card-link" href="#" target="_blank" rel="noopener">Ver proyecto →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-meta">
+          <span>Diseño</span>
+          <span>2024</span>
+        </div>
+        <h3>Nombre del proyecto</h3>
+        <p>Descripción corta: qué hiciste, qué herramientas usaste y qué resultado tuvo. Dos o tres líneas alcanzan.</p>
+        <a class="card-link" href="#" target="_blank" rel="noopener">Ver proyecto →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre-mi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Sobre mí</h2>
+    </div>
+    <div class="about-grid">
+      <p>
+        Contá acá tu historia: cómo empezaste, qué te interesa, cómo trabajás.
+        No hace falta que sea largo — dos párrafos cortos funcionan mejor que uno
+        muy denso. Podés mencionar tu formación, tu enfoque de trabajo o qué tipo
+        de proyectos te gustaría hacer a futuro.
+      </p>
+      <ul class="skills-list">
+        <li><span>Diseño</span><span>Figma, Illustrator</span></li>
+        <li><span>Código</span><span>HTML, CSS, JS</span></li>
+        <li><span>Escritura</span><span>Contenido, edición</span></li>
+        <li><span>Idiomas</span><span>Español, inglés</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap contact-row">
+    <div>
+      <h2>Hablemos</h2>
+      <p style="color: var(--ink-soft); margin: 0;">Disponible para nuevos proyectos.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:tu@email.com">tu@email.com</a>
+      <a href="https://linkedin.com/in/tuusuario" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/tuusuario" target="_blank" rel="noopener">GitHub</a>
+      <a href="cv.pdf" download>Descargar CV</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Nombre Apellido</div>
+</footer>
+
+</body>
+</html>
