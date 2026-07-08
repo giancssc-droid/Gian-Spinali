@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gian Spinali — Portafolio</title>
+<meta name="description" content="Portafolio de diseño gráfico y desarrollo web de Gian Spinali.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --paper: #EFEDE6;
+    --paper-raised: #F7F5EF;
+    --ink: #1B1B1B;
+    --ink-soft: #55534C;
+    --line: #D6D2C4;
+    --slate: #3D5A6C;
+    --slate-deep: #2A4150;
+    --amber: #C68B3F;
+    --radius: 2px;
+
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--slate); outline-offset: 3px; }
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Ledger label (signature element) ---------- */
+  .ledger-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+  }
+  .ledger-tab::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ---------- Header / index nav ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    z-index: 10;
+  }
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .nav-mark {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+  }
+  nav ul {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  nav a:hover { color: var(--ink); border-color: var(--amber); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 96px 0 72px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .ledger-tab { margin-bottom: 28px; }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 1.05;
+    margin: 0 0 20px;
+    max-width: 14ch;
+  }
+  .hero p.lede {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 0 32px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    padding: 11px 20px;
+    border-radius: var(--radius);
+    display: inline-block;
+  }
+  .btn-primary { background: var(--slate); color: var(--paper-raised); }
+  .btn-primary:hover { background: var(--slate-deep); }
+  .btn-ghost { border: 1px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+  /* ---------- Sections ---------- */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--amber);
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  /* ---------- Catalog cards (proyectos) ---------- */
+  .catalog {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .card {
+    background: var(--paper-raised);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .card-media {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    background: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .card-body {
+    padding: 22px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-grow: 1;
+  }
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0;
+  }
+  .card p { color: var(--ink-soft); font-size: 14.5px; margin: 0; flex-grow: 1; }
+  .card-link {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    align-self: flex-start;
+  }
+  .card-link:hover { color: var(--slate); border-color: var(--slate); }
+
+  /* ---------- Sobre mí ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+  }
+  .about-grid p { color: var(--ink-soft); font-size: 16px; max-width: 55ch; }
+  .skills-list { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: 13px; }
+  .skills-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .skills-list li span:last-child { color: var(--ink); }
+
+  /* ---------- Contacto ---------- */
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .contact-row h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 32px;
+    margin: 0 0 8px;
+  }
+  .contact-links { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 13px; }
+  .contact-links a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .contact-links a:hover { border-color: var(--amber); }
+
+  footer {
+    padding: 28px 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 720px) {
+    .catalog { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    nav ul { gap: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-row">
+    <span class="nav-mark">G. SPINALI — ARCHIVO</span>
+    <nav>
+      <ul>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="ledger-tab">Archivo de trabajo · 2010–2020</span>
+    <h1>Gian Spinali</h1>
+    <p class="lede">
+      Diseñador gráfico y desarrollador web con base en Cumaná, Venezuela.
+      Diez años armando marcas, tiendas online y sitios corporativos para clientes
+      en Venezuela, Brasil, Argentina y Chile — de forma freelance y como parte
+      del equipo de TECH4Web.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+      <a class="btn btn-ghost" href="cv.pdf" download>Descargar CV</a>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Proyectos</h2>
+    </div>
+
+    <div class="catalog">
+      <div class="card">
+        <div class="card-media"><img src="assets/hotellosbordones.jpg" alt="Sitio web del Hotel Los Bordones" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Desarrollo web</span><span>Cumaná, VE</span></div>
+          <h3>Hotel Los Bordones</h3>
+          <p>Sitio web corporativo para el hotel, con secciones de habitaciones, servicios e instalaciones frente a la playa.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="assets/rimale.jpg" alt="Tienda online de Rimale" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Desarrollo web</span><span>Brasil</span></div>
+          <h3>Rimale</h3>
+          <p>Tienda online para Rimale, fabricante brasileña de componentes para esquadrías, con catálogo de productos.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="assets/ionfit.jpg" alt="Sitio web de Ion Fit" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Desarrollo web</span><span>Cumaná, VE</span></div>
+          <h3>Ion Fit</h3>
+          <p>Web para un centro de acondicionamiento físico: planes, instructores y disciplinas del gimnasio.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="assets/ferrecumana.jpg" alt="Identidad de marca de Ferrecumaná" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Branding</span><span>Cumaná, VE</span></div>
+          <h3>Ferrecumaná</h3>
+          <p>Diseño de logo e identidad para redes sociales de esta ferretería con tienda online.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="assets/cochiporki.jpg" alt="Identidad de marca de Arepas Cochiporki" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Branding</span><span>Venezuela</span></div>
+          <h3>Arepas Cochiporki</h3>
+          <p>Logo y piezas para redes sociales de esta arepera, con un estilo ilustrado y desenfadado.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="assets/germanbartender.jpg" alt="Logo de Germán Bartender" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Branding</span><span>Venezuela</span></div>
+          <h3>Germán Bartender</h3>
+          <p>Diseño de logo personal para un bartender profesional, combinando iniciales y coctelera.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="assets/donaarepa.jpg" alt="Identidad de marca de Doña Arepa" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Diseño gráfico</span><span>Argentina</span></div>
+          <h3>Doña Arepa</h3>
+          <p>Piezas para redes sociales de este emprendimiento de comida venezolana en Argentina.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="assets/cicco.jpg" alt="Piezas de redes sociales de Cicco Dental Service" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Diseño gráfico</span><span>Venezuela</span></div>
+          <h3>Cicco Dental Service</h3>
+          <p>Serie de publicaciones educativas para redes sociales de una clínica odontológica.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre-mi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Sobre mí</h2>
+    </div>
+    <div class="about-grid">
+      <p>
+        Soy diseñador y desarrollador web, formado en la Universidad de Oriente
+        (UDO Sucre) en la especialidad de Informática. Entre 2010 y 2020 trabajé
+        de forma freelance y como parte del equipo de TECH4Web, una agencia
+        brasileña, diseñando identidades de marca y desarrollando sitios web
+        y tiendas online para clientes en Venezuela, Brasil, Argentina y Chile.
+      </p>
+      <p>
+        Me interesa tanto la parte visual (branding, piezas para redes) como
+        la técnica (maquetado y desarrollo de sitios). Actualmente busco sumar
+        proyectos nuevos — si tenés algo en mente, escribime.
+      </p>
+      <ul class="skills-list">
+        <li><span>Diseño gráfico</span><span>Illustrator, Photoshop</span></li>
+        <li><span>Desarrollo web</span><span>Dreamweaver, HTML/CSS</span></li>
+        <li><span>Motion</span><span>After Effects</span></li>
+        <li><span>Idiomas</span><span>Español, inglés, italiano</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap contact-row">
+    <div>
+      <h2>Hablemos</h2>
+      <p style="color: var(--ink-soft); margin: 0;">Disponible para nuevos proyectos.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:gianspinali86@gmail.com">gianspinali86@gmail.com</a>
+      <a href="tel:+584122496225">+58 412 249 6225</a>
+      <a href="cv.pdf" download>Descargar CV</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Gian Spinali · Cumaná, Sucre, Venezuela</div>
+</footer>
+
+</body>
+</html>
