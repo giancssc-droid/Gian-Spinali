@@ -8,22 +8,26 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
   /* ---------- Tokens ---------- */
   :root {
-    --paper: #EFEDE6;
-    --paper-raised: #F7F5EF;
-    --ink: #1B1B1B;
-    --ink-soft: #55534C;
-    --line: #D6D2C4;
-    --slate: #3D5A6C;
-    --slate-deep: #2A4150;
-    --amber: #C68B3F;
+    --void: #0B0B10;
+    --panel: #15151C;
+    --panel-raised: #1A1A23;
+    --text: #E9E7E4;
+    --text-dim: #8B8993;
+    --line: #26262F;
+    --nerv: #FF5F1F;
+    --nerv-dim: #7A3413;
+    --eva: #9B6BFF;
+    --eva-dim: #4A3580;
+    --term: #39FF88;
+    --term-dim: #1D6B41;
     --radius: 2px;
 
-    --font-display: 'Fraunces', serif;
+    --font-display: 'Rajdhani', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
   }
@@ -33,15 +37,19 @@
 
   body {
     margin: 0;
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--void);
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    color: var(--text);
     font-family: var(--font-body);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
 
   a { color: inherit; }
-  :focus-visible { outline: 2px solid var(--slate); outline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--nerv); outline-offset: 3px; }
 
   .wrap {
     max-width: 980px;
@@ -58,26 +66,33 @@
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--ink-soft);
+    color: var(--text-dim);
     padding: 4px 10px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: var(--paper-raised);
+    background: var(--panel);
   }
   .ledger-tab::before {
     content: "";
     width: 6px;
     height: 6px;
-    background: var(--amber);
+    background: var(--nerv);
+    box-shadow: 0 0 6px 1px var(--nerv);
     border-radius: 50%;
     display: inline-block;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
   }
 
   /* ---------- Header / index nav ---------- */
   header {
     position: sticky;
     top: 0;
-    background: var(--paper);
+    background: rgba(11,11,16,0.92);
+    backdrop-filter: blur(6px);
     border-bottom: 1px solid var(--line);
     z-index: 10;
   }
@@ -93,7 +108,7 @@
     font-family: var(--font-mono);
     font-size: 13px;
     letter-spacing: 0.05em;
-    color: var(--ink-soft);
+    color: var(--text-dim);
   }
   nav ul {
     display: flex;
@@ -107,30 +122,36 @@
   }
   nav a {
     text-decoration: none;
-    color: var(--ink-soft);
+    color: var(--text-dim);
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
     transition: border-color 0.15s ease, color 0.15s ease;
   }
-  nav a:hover { color: var(--ink); border-color: var(--amber); }
+  nav a:hover { color: var(--nerv); border-color: var(--nerv); }
 
   /* ---------- Hero ---------- */
   .hero {
     padding: 96px 0 72px;
     border-bottom: 1px solid var(--line);
+    position: relative;
   }
   .hero .ledger-tab { margin-bottom: 28px; }
   .hero h1 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(40px, 6vw, 68px);
-    line-height: 1.05;
+    font-weight: 700;
+    font-size: clamp(44px, 6.5vw, 72px);
+    letter-spacing: 0.01em;
+    line-height: 1.02;
     margin: 0 0 20px;
     max-width: 14ch;
+    background: linear-gradient(100deg, var(--text) 55%, var(--eva) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .hero p.lede {
     font-size: 18px;
-    color: var(--ink-soft);
+    color: var(--text-dim);
     max-width: 52ch;
     margin: 0 0 32px;
   }
@@ -143,11 +164,12 @@
     padding: 11px 20px;
     border-radius: var(--radius);
     display: inline-block;
+    transition: box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
   }
-  .btn-primary { background: var(--slate); color: var(--paper-raised); }
-  .btn-primary:hover { background: var(--slate-deep); }
-  .btn-ghost { border: 1px solid var(--ink); }
-  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+  .btn-primary { background: var(--nerv); color: #0B0B10; font-weight: 600; }
+  .btn-primary:hover { box-shadow: 0 0 18px 1px rgba(255,95,31,0.55); }
+  .btn-ghost { border: 1px solid var(--eva); color: var(--eva); }
+  .btn-ghost:hover { background: var(--eva); color: #0B0B10; box-shadow: 0 0 18px 1px rgba(155,107,255,0.45); }
 
   /* ---------- Sections ---------- */
   section { padding: 72px 0; border-bottom: 1px solid var(--line); }
@@ -162,12 +184,13 @@
   .section-num {
     font-family: var(--font-mono);
     font-size: 13px;
-    color: var(--amber);
+    color: var(--nerv);
   }
   .section-head h2 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    font-size: 30px;
     margin: 0;
   }
 
@@ -180,17 +203,40 @@
     border: 1px solid var(--line);
   }
   .card {
-    background: var(--paper-raised);
+    background: var(--panel);
     display: flex;
     flex-direction: column;
     gap: 14px;
+    position: relative;
   }
   .card-media {
     width: 100%;
     aspect-ratio: 16 / 11;
     overflow: hidden;
-    background: var(--ink);
+    background: #000;
     border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .card-media::before,
+  .card-media::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--nerv);
+    z-index: 2;
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .card-media::before {
+    top: 10px; left: 10px;
+    border-top: 2px solid var(--nerv);
+    border-left: 2px solid var(--nerv);
+  }
+  .card-media::after {
+    bottom: 10px; right: 10px;
+    border-bottom: 2px solid var(--eva);
+    border-right: 2px solid var(--eva);
   }
   .card-media img {
     width: 100%;
@@ -198,6 +244,12 @@
     object-fit: cover;
     object-position: top center;
     display: block;
+    filter: saturate(0.92);
+    transition: filter 0.2s ease, transform 0.3s ease;
+  }
+  .card:hover .card-media img {
+    filter: saturate(1.1);
+    transform: scale(1.02);
   }
   .card-body {
     padding: 22px 28px 28px;
@@ -213,23 +265,36 @@
     font-size: 11px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--ink-soft);
+    color: var(--text-dim);
+  }
+  .card-meta .tag { display: inline-flex; align-items: center; gap: 6px; }
+  .card-meta .tag::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    background: var(--tag-color, var(--nerv));
+    box-shadow: 0 0 5px var(--tag-color, var(--nerv));
   }
   .card h3 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    font-size: 23px;
     margin: 0;
+    color: var(--text);
   }
-  .card p { color: var(--ink-soft); font-size: 14.5px; margin: 0; flex-grow: 1; }
+  .card p { color: var(--text-dim); font-size: 14.5px; margin: 0; flex-grow: 1; }
   .card-link {
     font-family: var(--font-mono);
     font-size: 13px;
     text-decoration: none;
-    border-bottom: 1px solid var(--ink);
+    color: var(--term);
+    border-bottom: 1px solid var(--term-dim);
     align-self: flex-start;
   }
-  .card-link:hover { color: var(--slate); border-color: var(--slate); }
+  .card-link:hover { text-shadow: 0 0 8px var(--term); border-color: var(--term); }
 
   /* ---------- Sobre mí ---------- */
   .about-grid {
@@ -237,16 +302,16 @@
     grid-template-columns: 1.3fr 1fr;
     gap: 48px;
   }
-  .about-grid p { color: var(--ink-soft); font-size: 16px; max-width: 55ch; }
+  .about-grid p { color: var(--text-dim); font-size: 16px; max-width: 55ch; }
   .skills-list { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: 13px; }
   .skills-list li {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
     border-bottom: 1px solid var(--line);
-    color: var(--ink-soft);
+    color: var(--text-dim);
   }
-  .skills-list li span:last-child { color: var(--ink); }
+  .skills-list li span:last-child { color: var(--eva); }
 
   /* ---------- Contacto ---------- */
   .contact-row {
@@ -258,19 +323,20 @@
   }
   .contact-row h2 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    font-size: 34px;
     margin: 0 0 8px;
   }
   .contact-links { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 13px; }
-  .contact-links a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
-  .contact-links a:hover { border-color: var(--amber); }
+  .contact-links a { text-decoration: none; color: var(--text-dim); border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: color 0.15s ease, border-color 0.15s ease; }
+  .contact-links a:hover { color: var(--nerv); border-color: var(--nerv); }
 
   footer {
     padding: 28px 0;
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--ink-soft);
+    color: var(--text-dim);
     text-align: center;
   }
 
@@ -330,7 +396,7 @@
       <div class="card">
         <div class="card-media"><img src="assets/hotellosbordones.png" alt="Sitio web del Hotel Los Bordones" loading="lazy"></div>
         <div class="card-body">
-          <div class="card-meta"><span>Desarrollo web</span><span>Cumaná, VE</span></div>
+          <div class="card-meta"><span class="tag" style="--tag-color: var(--nerv)">Desarrollo web</span><span>Cumaná, VE</span></div>
           <h3>Hotel Los Bordones</h3>
           <p>Sitio web corporativo para el hotel, con secciones de habitaciones, servicios e instalaciones frente a la playa.</p>
         </div>
@@ -339,7 +405,7 @@
       <div class="card">
         <div class="card-media"><img src="assets/rimale.png" alt="Tienda online de Rimale" loading="lazy"></div>
         <div class="card-body">
-          <div class="card-meta"><span>Desarrollo web</span><span>Brasil</span></div>
+          <div class="card-meta"><span class="tag" style="--tag-color: var(--nerv)">Desarrollo web</span><span>Brasil</span></div>
           <h3>Rimale</h3>
           <p>Tienda online para Rimale, fabricante brasileña de componentes para esquadrías, con catálogo de productos.</p>
         </div>
@@ -348,7 +414,7 @@
       <div class="card">
         <div class="card-media"><img src="assets/ionfit.jpg" alt="Sitio web de Ion Fit" loading="lazy"></div>
         <div class="card-body">
-          <div class="card-meta"><span>Desarrollo web</span><span>Cumaná, VE</span></div>
+          <div class="card-meta"><span class="tag" style="--tag-color: var(--nerv)">Desarrollo web</span><span>Cumaná, VE</span></div>
           <h3>Ion Fit</h3>
           <p>Web para un centro de acondicionamiento físico: planes, instructores y disciplinas del gimnasio.</p>
         </div>
@@ -357,7 +423,7 @@
       <div class="card">
         <div class="card-media"><img src="assets/ferrecumana.png" alt="Identidad de marca de Ferrecumaná" loading="lazy"></div>
         <div class="card-body">
-          <div class="card-meta"><span>Branding</span><span>Cumaná, VE</span></div>
+          <div class="card-meta"><span class="tag" style="--tag-color: var(--eva)">Branding</span><span>Cumaná, VE</span></div>
           <h3>Ferrecumaná</h3>
           <p>Diseño de logo e identidad para redes sociales de esta ferretería con tienda online.</p>
         </div>
@@ -366,7 +432,7 @@
       <div class="card">
         <div class="card-media"><img src="assets/cochiporki.jpg" alt="Identidad de marca de Arepas Cochiporki" loading="lazy"></div>
         <div class="card-body">
-          <div class="card-meta"><span>Branding</span><span>Venezuela</span></div>
+          <div class="card-meta"><span class="tag" style="--tag-color: var(--eva)">Branding</span><span>Venezuela</span></div>
           <h3>Arepas Cochiporki</h3>
           <p>Logo y piezas para redes sociales de esta arepera, con un estilo ilustrado y desenfadado.</p>
         </div>
@@ -375,7 +441,7 @@
       <div class="card">
         <div class="card-media"><img src="assets/germanbartender.png" alt="Logo de Germán Bartender" loading="lazy"></div>
         <div class="card-body">
-          <div class="card-meta"><span>Branding</span><span>Venezuela</span></div>
+          <div class="card-meta"><span class="tag" style="--tag-color: var(--eva)">Branding</span><span>Venezuela</span></div>
           <h3>Germán Bartender</h3>
           <p>Diseño de logo personal para un bartender profesional, combinando iniciales y coctelera.</p>
         </div>
@@ -384,7 +450,7 @@
       <div class="card">
         <div class="card-media"><img src="assets/donaarepa.jpg" alt="Identidad de marca de Doña Arepa" loading="lazy"></div>
         <div class="card-body">
-          <div class="card-meta"><span>Diseño gráfico</span><span>Argentina</span></div>
+          <div class="card-meta"><span class="tag" style="--tag-color: var(--term)">Diseño gráfico</span><span>Argentina</span></div>
           <h3>Doña Arepa</h3>
           <p>Piezas para redes sociales de este emprendimiento de comida venezolana en Argentina.</p>
         </div>
@@ -393,7 +459,7 @@
       <div class="card">
         <div class="card-media"><img src="assets/cicco.jpg" alt="Piezas de redes sociales de Cicco Dental Service" loading="lazy"></div>
         <div class="card-body">
-          <div class="card-meta"><span>Diseño gráfico</span><span>Venezuela</span></div>
+          <div class="card-meta"><span class="tag" style="--tag-color: var(--term)">Diseño gráfico</span><span>Venezuela</span></div>
           <h3>Cicco Dental Service</h3>
           <p>Serie de publicaciones educativas para redes sociales de una clínica odontológica.</p>
         </div>
@@ -435,7 +501,7 @@
   <div class="wrap contact-row">
     <div>
       <h2>Hablemos</h2>
-      <p style="color: var(--ink-soft); margin: 0;">Disponible para nuevos proyectos.</p>
+      <p style="color: var(--text-dim); margin: 0;">Disponible para nuevos proyectos.</p>
     </div>
     <div class="contact-links">
       <a href="mailto:gianspinali86@gmail.com">gianspinali86@gmail.com</a>
